@@ -65,7 +65,7 @@ router.post("/register/",
     body("email")
         .isEmail()
         .withMessage("Invalid email address"),
-        body('password')
+    body('password')
         .isLength({ min: 8 })
         .withMessage('Password must be at least 8 characters long')
         .matches(/[a-z]/)
@@ -89,7 +89,7 @@ router.post("/register/",
         try {
             const existingUser = await Users.findOne({ email: email });
             if (existingUser) {
-                return res.status(403).send("Email taken")
+                return res.status(403).json({message:"Email taken"})
             }else{
                 const hashed_password = await hashPassword(password_plain);
                 const newUser = new Users({
@@ -97,7 +97,7 @@ router.post("/register/",
                     password: hashed_password
                 })
                 await newUser.save();
-                res.status(200).send('User created');
+                res.status(200).json({message:'User created'});
             }
         } catch (error) {
             console.error(error);

@@ -5,6 +5,9 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import userRoutes from './routes/userRouter';
 import todoRoutes from './routes/todoRoutes';
+import path from 'path';
+
+
 dotenv.config();
 const secret_key = process.env.SECRET!;
 if (!secret_key) {
@@ -43,6 +46,8 @@ const app: Express = express();
 const port: number = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
 
 
 app.get('/api/private', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -54,7 +59,15 @@ app.get('/api/private', passport.authenticate('jwt', { session: false }), (req, 
     }
 });
 
+app.get("/register.html", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'register.html'));
 
+});
+
+app.get("/login.html", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'login.html'));
+
+});
 app.use('/api/user', userRoutes);
 app.use('/api/todos', todoRoutes);
 
