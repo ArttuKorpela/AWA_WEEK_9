@@ -49,11 +49,11 @@ router.post("/login/", async (req: Request,res:Response) => {
                     });
 
                 } else {
-                    res.send("No match");
+                    res.json({success: false, issue: "Wrong password"});
                 }
             }) 
         } else {
-            return res.send("No user with this email");
+            return res.send({success: false, issue:"No user with this email"});
         }
     } catch(err) {
         return res.status(403).send("Error in login");

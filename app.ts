@@ -68,6 +68,11 @@ app.get("/login.html", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, '../public/views', 'login.html'));
 
 });
+
+app.get("/", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname,"../", 'index.html'));
+
+});
 app.use('/api/user', userRoutes);
 app.use('/api/todos', todoRoutes);
 

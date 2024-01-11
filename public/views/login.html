@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../css/register.css">
+    <title>Register as a new user</title>
 </head>
 <body>
-    <H2><b>This is the login page</b></H2>
+    <div class="main">
+        <H2><b>Login</b></H2>
+        <form action="" id="loginForm" method="post">
+            <label for="email"><b>Email</b></label>
+            <input type="email" placeholder="Enter Email" name="email" id="email">
+            <br>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" id="password">
+            <br>
+            <input type="submit" value="Login">
+            
+        </form>
+    </div>
+    <script type="text/javascript" src="../js/login.js"></script>
 </body>
 </html>
