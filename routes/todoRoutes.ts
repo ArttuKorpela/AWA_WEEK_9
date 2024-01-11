@@ -34,4 +34,21 @@ async (req: Request, res: Response) => {
     }
 });
 
+router.get("/all", passport.authenticate('jwt', {session: false}),
+async (req: Request, res: Response) => {
+    try {
+        const user = req.user as UserPayload;
+        const userId = user.data.id;
+        let existingUser = await Todos.findOne({ user: userId });
+
+        if (!existingUser) {res.json({success: false, items: null})}
+        else {
+            res.json({success: true, items: existingUser.items})
+        }
+    } catch (err) {
+        res.status(500).send('Error processing your request')
+    }
+}
+)
+
 export default router;

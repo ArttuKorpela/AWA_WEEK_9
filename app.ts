@@ -53,9 +53,9 @@ app.use(express.static('public'));
 app.get('/api/private', passport.authenticate('jwt', { session: false }), (req, res) => {
     const user = req.user as UserPayload;
     if (user) {
-        res.status(200).json( {email: user.data.email});
+        res.json( {success: true, email: user.data.email});
     } else {
-        res.status(401).send('Unauthorized');
+        res.json({succuess: false});
     }
 });
 
@@ -70,7 +70,7 @@ app.get("/login.html", (req: Request, res: Response) => {
 });
 
 app.get("/", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname,"../", 'index.html'));
+    res.sendFile(path.join(__dirname,"../public/views", 'index.html'));
 
 });
 app.use('/api/user', userRoutes);
