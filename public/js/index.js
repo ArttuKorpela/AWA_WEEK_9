@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function notLoggedIn() {
         const container = document.getElementById("container");
         const registerLink = document.createElement("a");
-        registerLink.href = "./register.html";
+        registerLink.href = "/register.html";
         registerLink.textContent = "Register";
         container.append(registerLink);
         container.appendChild(document.createTextNode(" | "));        
         const loginLink = document.createElement("a");
-        loginLink.href = "./login.html";
+        loginLink.href = "/login.html";
         loginLink.textContent = "Login";
         container.append(loginLink);
     }

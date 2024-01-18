@@ -28,9 +28,9 @@ async (req: Request, res: Response) => {
             const newUser = new Todos({ user: userId, items: newItems });
             await newUser.save();
         }
-        res.status(200).send("Success");
+        res.status(200).json({message:"success"});
     } catch (err) {
-        res.status(500).send('Error processing your request');
+        res.status(500).json({message:"Error processing your request"});
     }
 });
 
