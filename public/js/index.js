@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const logOutBtn = document.createElement("button");
         logOutBtn.textContent = "Logout";
         logOutBtn.classList.add("button");
-        logOutBtn.id("logout");
+        logOutBtn.id="logout";
         logOutBtn.addEventListener("click", () => {
             localStorage.removeItem("auth_token");
             window.location.href = "/";
