@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
+        const errorArea = document.getElementById('errors');
 
         fetch('/api/user/register/', {
             method: 'POST',
@@ -21,9 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Success:', data);
                     window.location.href = '/login.html';
                 });
+            } else if (response.status == 403) {
+                errorArea.textContent = "Email already in use"; 
+            } else if (response.status === 400) {
+                errorArea.textContent = "Password is not strong enough"; 
             } else {
-                console.error('Registration failed with status:', response.status);
+                console.error('Error:', error);
             }
+
         })
         .catch((error) => {
             console.error('Error:', error);

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
+        const errorArea = document.getElementById('errors');
 
         fetch('/api/user/login/', {
             method: 'POST',
@@ -23,13 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.setItem("auth_token",token);
                         window.location.href = '/';
                     }           
-                    else {
-                        console.log("Wrong credentials")
-                        
-                    }
                 });
             } else {
-                console.error('Registration failed with status:', response.status);
+                errorArea.textContent = "Invalid credentials";
             }
         })
         .catch((error) => {

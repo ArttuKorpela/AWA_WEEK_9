@@ -48,18 +48,26 @@ document.addEventListener("DOMContentLoaded", () => {
         todoInput.placeholder = "Write your todo's here!"
         container.append(todoInput);
 
+        async function addTodoItem() {
+            await addTodo(todoInput.value);
+        }
+
+        todoInput.addEventListener("keypress", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); 
+                addTodoItem();
+            }
+        });
+
         const submitBtn = document.createElement("button");
         submitBtn.textContent = "Submit";
         submitBtn.id = "submitBtn";
         submitBtn.type = "button"
         submitBtn.classList.add("button");
-        submitBtn.addEventListener("click", async () => {
-            await addTodo(todoInput.value)
-        })
+        submitBtn.addEventListener("click", () => addTodoItem());
         container.append(submitBtn);
         container.append(document.createElement("br"));
-
-
+        
         const logOutBtn = document.createElement("button");
         logOutBtn.textContent = "Logout";
         logOutBtn.classList.add("button");
@@ -89,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resp.json();
         }).then(data => {
             createTodoItem(todo);
+            console.log("Here!")
         })
         .catch(e => {throw e});
 

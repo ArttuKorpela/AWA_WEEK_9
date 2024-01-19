@@ -49,11 +49,11 @@ router.post("/login/", async (req: Request,res:Response) => {
                     });
 
                 } else {
-                    res.json({success: false, issue: "Wrong password"});
+                    res.status(403).json({success: false, errros: "Wrong password"});
                 }
             }) 
         } else {
-            return res.send({success: false, issue:"No user with this email"});
+            return res.status(400).send({success: false, errors:"No user with this email"});
         }
     } catch(err) {
         return res.status(403).send("Error in login");
@@ -79,9 +79,6 @@ router.post("/register/",
 
     async (req: Request,res:Response) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
 
         const email: string = req.body.email;
         const password_plain: string = req.body.password;
@@ -90,7 +87,10 @@ router.post("/register/",
             const existingUser = await Users.findOne({ email: email });
             if (existingUser) {
                 return res.status(403).json({message:"Email taken"})
-            }else{
+            }else if (!errors.isEmpty()){
+                return res.status(400).json({ errors: errors.array() });
+            }
+            else{
                 const hashed_password = await hashPassword(password_plain);
                 const newUser = new Users({
                     email: email,
